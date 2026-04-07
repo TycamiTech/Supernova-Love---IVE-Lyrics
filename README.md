@@ -26,36 +26,36 @@ Berikut adalah ringkasan visual berupa diagram alur (flowchart) proses eksekusi 
 
 ```mermaid
 graph TD
-    A([Mulai Eksekusi]) --> B[Impor modul sys & time]
-    B --> C{Pengecekan __name__ == '__main__'}
-    C -- Ya --> D[Panggil fungsi cetak_lirik()]
+    A(["Mulai Eksekusi"]) --> B["Impor modul sys & time"]
+    B --> C{"Pengecekan __main__"}
+    C -- Ya --> D["Panggil fungsi cetak_lirik"]
     
-    subgraph Proses Fungsi cetak_lirik()
-        D --> E[Inisialisasi kode warna ANSI Ungu & List Lirik]
-        E --> F[Print Header Lagu]
-        F --> G[Tidur / Jeda 1 detik]
-        G --> H{Apakah masih ada sisa lirik?}
+    subgraph Proses_Fungsi_cetak_lirik
+        D --> E["Inisialisasi warna ANSI & List Lirik"]
+        E --> F["Print Header Lagu"]
+        F --> G["Tidur / Jeda 1 detik"]
+        G --> H{"Masih ada sisa lirik?"}
         
-        H -- Ya (Loop Baris) --> I[Ambil: teks, kecepatan_ketik, jeda_baris]
-        I --> J{Sisa Karakter di baris ini?}
+        H -- Ya --> I["Ambil baris lirik"]
+        I --> J{"Sisa Karakter?"}
         
-        J -- Ya (Loop Karakter) --> K[Print 1 karakter tanpa newline]
-        K --> L[Flush Output Buffer stdout]
-        L --> M[Jeda selama durasi kecepatan_ketik]
+        J -- Ya --> K["Print 1 karakter tanpa newline"]
+        K --> L["Flush Output Buffer stdout"]
+        L --> M["Jeda (kecepatan ketik)"]
         M --> J
         
-        J -- Tidak (Selesai Baris) --> N[Print newline]
-        N --> O[Jeda selama durasi jeda_baris]
+        J -- Tidak --> N["Print newline"]
+        N --> O["Jeda (jeda baris)"]
         O --> H
         
-        H -- Tidak (Lirik Habis) --> P[Print Footer Tycami Tech & Reset Warna]
+        H -- Tidak --> P["Print Footer & Reset Warna"]
     end
     
-    P --> Q([Program Selesai Eksekusi])
+    P --> Q(["Program Selesai Eksekusi"])
     
-    subgraph Exception Handling
-        R((KeyboardInterrupt Ctrl+C)) -.-> S[Catch Exception]
-        S --> T[Print 'Paused.' dan matikan pewarnaan]
+    subgraph Exception_Handling
+        R(("Ctrl+C")) -.-> S["Catch Exception"]
+        S --> T["Print Paused dan matikan pewarnaan"]
         T --> Q
     end
 ```
